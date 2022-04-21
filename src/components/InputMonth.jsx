@@ -2,6 +2,7 @@ import React from "react";
 
 export const InputMonth = (props) => {
   const { month, onChangeMonthText, onClick} = props;
+  console.log(props);
   return (
     <div>
       <input
