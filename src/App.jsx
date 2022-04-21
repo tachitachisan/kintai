@@ -10,8 +10,6 @@ export const App = () => {
   const monthDays = (year, month)=>{
     return new Date(parseInt(year, 10), parseInt(month, 10), 0).getDate();
   }
-  
-
   const [month, setMonth]=useState("");
   const [monthText, setMonthText]=useState("");
   const onChangeMonthText = (event) => setMonthText(event.target.value);
@@ -21,20 +19,15 @@ export const App = () => {
   //const thisMonth=4;
   
   
-  var days=0;
   const onClickMonthText = () => {
+    var days;
     if (monthText === "") return;
-    // console.log(monthText);
     setMonth(monthText);
-    // console.log(month);
     if(monthText!==""){
      days=monthDays(thisYear, monthText);
-    //  console.log("ddd"+days);
     }
     const arrAtt = new Array(days).fill("未入力");
-    // console.log(arrAtt);
     setMonthAttendance(arrAtt);
-    // setMonthText("");
   };
 
   const onClickAttendance = (index) =>{
@@ -48,16 +41,11 @@ export const App = () => {
     setMonthAttendance(newMonAtt);
   }
 
-
-  console.log("month"+month);
-  console.log("monthText"+monthText);
-  console.log(onChangeMonthText);
-
   return (
     <>
       <Header/>
       <InputMonth
-        month={month}
+        month={monthText}
         onChangeMonthText={onChangeMonthText}
         onClick={onClickMonthText}
       />
