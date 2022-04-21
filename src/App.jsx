@@ -1,62 +1,78 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { Header } from "./components/Header";
-import { DayAttendance } from "./components/DayAttendance";
 import { MonthAttendance } from "./components/MonthAttendance";
+import { Title } from "./components/Title";
+import { InputMonth } from "./components/InputMonth";
 
-var xx =1;
+
 export const App = () => {
 
-  const [attText, setAttText] = useState("");
 
-  const arrAtt = new Array(31).fill("未入力");
-  const [monthAttendance, setMonthAttendance] = useState(arrAtt);
+  const monthDays = (year, month)=>{
+    return new Date(parseInt(year, 10), parseInt(month, 10), 0).getDate();
+  }
   
 
-  // const onClickAttendance = () =>{
-  //   setAttText("出勤！");
-  // }
-  // const onClickHoliday = () =>{
-  //   setAttText("休暇～");
-  // }
+  const [month, setMonth]=useState("");
+  const [monthText, setMonthText]=useState("");
+  const onChangeMonthText = (event) => setMonthText(event.target.value);
+  
+
+  const thisYear=2022;
+  const thisMonth=4;
+  
+  
+  var days=0;
+  const [monthAttendance, setMonthAttendance] = useState([]);
+  const onClickMonthText = () => {
+    if (monthText === "") return;
+    
+    // console.log(monthText);
+    setMonth(monthText);
+    // console.log(month);
+    if(monthText!==""){
+     days=monthDays(thisYear, monthText);
+    //  console.log("ddd"+days);
+    }
+    
+    const arrAtt = new Array(days).fill("未入力");
+    // console.log(arrAtt);
+    
+    setMonthAttendance(arrAtt);
+    // setMonthText("");
+  };
 
   const onClickAttendance = (index) =>{
     const newMonAtt = [...monthAttendance];
     newMonAtt[index]="出勤";
     setMonthAttendance(newMonAtt);
-    // console.log(monthAttendance);
   }
   const onClickHoliday = (index) =>{
     const newMonAtt = [...monthAttendance];
     newMonAtt[index]="休暇";
     setMonthAttendance(newMonAtt);
-    // console.log(monthAttendance);
   }
-  // console.log(arrAtt);
-  // console.log("aaa");
-  
-  // if(xx === 1){
-  // setMonthAttendance(arrAtt);
-  // console.log(xx);
-  // xx=2;
-  // }
-   //console.log(arrAtt);
-   //console.log(monthAttendance);
 
   return (
     <>
       <Header/>
-      {/* <DayAttendance
-        attText={attText==="" || attText}
-        onClickAttendance={onClickAttendance}
-        onClickHoliday={onClickHoliday}
-      /> */}
+      <InputMonth
+        month={month}
+        onChangeMonthText={onChangeMonthText}
+        onClick={onClickMonthText}
+      />
+      <Title
+        thisYear={thisYear}
+        thisMonth={month}
+      />
+      {month!=="" && (
       <MonthAttendance
-        //attText={attText==="" || attText}
         monAtt={monthAttendance}
         onClickAttendance={onClickAttendance}
         onClickHoliday={onClickHoliday}
       />
+      )}
     </>
   );
 };

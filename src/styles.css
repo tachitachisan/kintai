@@ -72,6 +72,7 @@ li {
   padding: "8px";
   margin: "8px";
   border-Radius: "8px";
+  list-style: none;
 }
 
 .monthAttendance-area {
@@ -81,4 +82,11 @@ li {
   padding: 8px;
   margin: 8px;
   border-radius: 8px;
+}
+
+.header {
+  text-align: center;
+  margin-top: 0;
+  font-weight: bold;
+  color: #666;
 }
