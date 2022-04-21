@@ -10,22 +10,20 @@ export const App = () => {
   const monthDays = (year, month)=>{
     return new Date(parseInt(year, 10), parseInt(month, 10), 0).getDate();
   }
+  const [year, setYear]=useState("");
+  const [yearText, setYearText]=useState("");
+  const onChangeYearText = (event) => setYearText(event.target.value);
   const [month, setMonth]=useState("");
   const [monthText, setMonthText]=useState("");
   const onChangeMonthText = (event) => setMonthText(event.target.value);
   const [monthAttendance, setMonthAttendance] = useState([]);
-
-  const thisYear=2022;
-  //const thisMonth=4;
   
-  
-  const onClickMonthText = () => {
+  const onClickDecision = () => {
     var days;
-    if (monthText === "") return;
+    if (monthText === "" || yearText === "") return;
     setMonth(monthText);
-    if(monthText!==""){
-     days=monthDays(thisYear, monthText);
-    }
+    setYear(yearText);
+     days=monthDays(yearText, monthText);
     const arrAtt = new Array(days).fill("未入力");
     setMonthAttendance(arrAtt);
   };
@@ -47,13 +45,15 @@ export const App = () => {
       <InputMonth
         month={monthText}
         onChangeMonthText={onChangeMonthText}
-        onClick={onClickMonthText}
+        year={yearText}
+        onChangeYearText={onChangeYearText}
+        onClick={onClickDecision}
       />
       <Title
-        thisYear={thisYear}
+        thisYear={year}
         thisMonth={month}
       />
-      {month!=="" && (
+      {(month!=="" && year!=="") && (
         <MonthAttendance
           monAtt={monthAttendance}
           onClickAttendance={onClickAttendance}
